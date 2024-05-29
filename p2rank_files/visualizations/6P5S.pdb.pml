@@ -1,0 +1,75 @@
+
+        from pymol import cmd,stored
+        
+        set depth_cue, 1
+        set fog_start, 0.4
+        
+        set_color b_col, [36,36,85]
+        set_color t_col, [10,10,10]
+        set bg_rgb_bottom, b_col
+        set bg_rgb_top, t_col      
+        set bg_gradient
+        
+        set  spec_power  =  200
+        set  spec_refl   =  0
+        
+        load "data/6P5S.pdb", protein
+        create ligands, protein and organic
+        select xlig, protein and organic
+        delete xlig
+        
+        hide everything, all
+        
+        color white, elem c
+        color bluewhite, protein
+        #show_as cartoon, protein
+        show surface, protein
+        #set transparency, 0.15
+        
+        show sticks, ligands
+        set stick_color, magenta
+        
+        
+        
+        
+        # SAS points
+ 
+        load "data/6P5S.pdb_points.pdb.gz", points
+        hide nonbonded, points
+        show nb_spheres, points
+        set sphere_scale, 0.2, points
+        cmd.spectrum("b", "green_red", selection="points", minimum=0, maximum=0.7)
+        
+        
+        stored.list=[]
+        cmd.iterate("(resn STP)","stored.list.append(resi)")    # read info about residues STP
+        lastSTP=stored.list[-1] # get the index of the last residue
+        hide lines, resn STP
+        
+        cmd.select("rest", "resn STP and resi 0")
+        
+        for my_index in range(1,int(lastSTP)+1): cmd.select("pocket"+str(my_index), "resn STP and resi "+str(my_index))
+        for my_index in range(1,int(lastSTP)+1): cmd.show("spheres","pocket"+str(my_index))
+        for my_index in range(1,int(lastSTP)+1): cmd.set("sphere_scale","0.4","pocket"+str(my_index))
+        for my_index in range(1,int(lastSTP)+1): cmd.set("sphere_transparency","0.1","pocket"+str(my_index))
+        
+        
+        
+        set_color pcol1 = [0.361,0.576,0.902]
+select surf_pocket1, protein and id [998,999,1010,1138,1137,611,1027,608,612,1026,472,584,585,588,590,587,589,594,1146,1135,1139,1140,1143,1147,1153,337,1144,1145,367,172,178,285,288,289,176,177,272,149,150,153,152,155,156,157,160,161,619,641] 
+set surface_color,  pcol1, surf_pocket1 
+set_color pcol2 = [0.490,0.278,0.702]
+select surf_pocket2, protein and id [185,297,14,17,22,116,117,10,183,184,141,25,13,296,564,538,540,43,51] 
+set surface_color,  pcol2, surf_pocket2 
+set_color pcol3 = [0.902,0.361,0.682]
+select surf_pocket3, protein and id [1525,1526,1517,1518,1274,1275,1260,1261,1262,1263,1241,1473,656,658,659,660,732,734,733,992,1000,1001,1002,1003,654,655,657,994,1474,993] 
+set surface_color,  pcol3, surf_pocket3 
+set_color pcol4 = [0.702,0.408,0.278]
+select surf_pocket4, protein and id [754,783,786,787,762,785,678,680,714,1092,1094,1095,1082,1054] 
+set surface_color,  pcol4, surf_pocket4 
+   
+        
+        deselect
+        
+        orient
+        

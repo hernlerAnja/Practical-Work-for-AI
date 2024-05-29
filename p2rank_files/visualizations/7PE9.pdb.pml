@@ -1,0 +1,345 @@
+
+        from pymol import cmd,stored
+        
+        set depth_cue, 1
+        set fog_start, 0.4
+        
+        set_color b_col, [36,36,85]
+        set_color t_col, [10,10,10]
+        set bg_rgb_bottom, b_col
+        set bg_rgb_top, t_col      
+        set bg_gradient
+        
+        set  spec_power  =  200
+        set  spec_refl   =  0
+        
+        load "data/7PE9.pdb", protein
+        create ligands, protein and organic
+        select xlig, protein and organic
+        delete xlig
+        
+        hide everything, all
+        
+        color white, elem c
+        color bluewhite, protein
+        #show_as cartoon, protein
+        show surface, protein
+        #set transparency, 0.15
+        
+        show sticks, ligands
+        set stick_color, magenta
+        
+        
+        
+        
+        # SAS points
+ 
+        load "data/7PE9.pdb_points.pdb.gz", points
+        hide nonbonded, points
+        show nb_spheres, points
+        set sphere_scale, 0.2, points
+        cmd.spectrum("b", "green_red", selection="points", minimum=0, maximum=0.7)
+        
+        
+        stored.list=[]
+        cmd.iterate("(resn STP)","stored.list.append(resi)")    # read info about residues STP
+        lastSTP=stored.list[-1] # get the index of the last residue
+        hide lines, resn STP
+        
+        cmd.select("rest", "resn STP and resi 0")
+        
+        for my_index in range(1,int(lastSTP)+1): cmd.select("pocket"+str(my_index), "resn STP and resi "+str(my_index))
+        for my_index in range(1,int(lastSTP)+1): cmd.show("spheres","pocket"+str(my_index))
+        for my_index in range(1,int(lastSTP)+1): cmd.set("sphere_scale","0.4","pocket"+str(my_index))
+        for my_index in range(1,int(lastSTP)+1): cmd.set("sphere_transparency","0.1","pocket"+str(my_index))
+        
+        
+        
+        set_color pcol1 = [0.361,0.576,0.902]
+select surf_pocket1, protein and id [17054,17059,17060,17409,17414,17417,17422,17064,17426,17749,17750,17751,17755,16743,16744,16742,14700,14701,17051,17401,17403,18811,16719,16722,17053,16718,16727,17180,17182,17179,14699,18112,18113,18114,18115,18504,18130,18128,18129,18511,18824,17427,17431,17434,17075,17157,17430,17445,17446,17773,17449,17769,14714,18493,18495,14726,16731,16740,18830,17406,17404,17405,17727,17735,17412,17740,17451,17725,17728,17730,18102,17526,17844,17715,17407,18104,14709,14716,16303,16304,17843,14706,14707,14715,16306] 
+set surface_color,  pcol1, surf_pocket1 
+set_color pcol2 = [0.278,0.431,0.702]
+select surf_pocket2, protein and id [27564,27565,27566,13258,27549,27550,27545,27544,27546,20041,20044,20277,20278,20287,20289,20309,20270,13231,20052,20073,20040,20049,20043,20339,20340,20341,20337,20313,20776,20372,20768,20770,13299,13300,13296,13298,13297,13048,13038,13266,13072,13073,20783,20784,20765,20022,20036,20019,20015,20016,20021,20061,20064,20349,19997] 
+set surface_color,  pcol2, surf_pocket2 
+set_color pcol3 = [0.361,0.533,0.902]
+select surf_pocket3, protein and id [9305,9306,30915,30914,9110,30907,9248,9138,9250,9252,9274,9247,9109,9108,30534,30548,30881,30883,30547,30543,9139,9140,9143,9322,30510,30511,30527,30513,30523,9176,30505,30528,30529,30531,30539,9347,30525,30541] 
+set surface_color,  pcol3, surf_pocket3 
+set_color pcol4 = [0.278,0.400,0.702]
+select surf_pocket4, protein and id [12725,12730,12731,12732,12737,12766,26798,26802,12783,13215,13147,13145,26801,26794,26795,12742,12744,12738,12740,27250,12762,12761,26764,26765,26766,27216,27217,27218,27185,13221,13190,13185,13188,26760,26791,27249,27237,27238,27256,27257,27288,27287,27289,27277,27195] 
+set surface_color,  pcol4, surf_pocket4 
+set_color pcol5 = [0.361,0.494,0.902]
+select surf_pocket5, protein and id [13933,13949,13950,14342,14343,15226,15312,15315,15201,15210,15297,15314,14347,14256,14258,14255,14257,14260,13972,13973,15316,15317,15320,15323,14017,14358,14359,14360,14389,14404,14367,14365,15227,13803,13767,13754,13755] 
+set surface_color,  pcol5, surf_pocket5 
+set_color pcol6 = [0.278,0.369,0.702]
+select surf_pocket6, protein and id [22588,22620,22621,22624,23480,23481,23482,23932,22595,22596,22587,23895,23922,24216,24217,24218,22615,22616,22619,6805,6806,23019,6803,22626,22646,22589,22590,22591,22592,22594,22593,23901,23445,22562,22600,23894,23896,23897,24201,22558,23429,6808,6809,6810,23428,23426,23451,23453,23454,23452] 
+set surface_color,  pcol6, surf_pocket6 
+set_color pcol7 = [0.361,0.451,0.902]
+select surf_pocket7, protein and id [1911,1912,1914,1915,1918,1913,1851,1853,1854,1869,1848,1849,2100,2101,2102,2103,2110,1865,1866,1870,1871,1874,1704,1689,1686,1724,1703,1888,1890,1893,1934,1933,2002,2019,2022,2136,1931,1930,1932,2003,2000,1948,1833,2134,2135,2037,2038,2016,2017,2018,1997,2021,2042,2039,1926,1927,1928,1766,1769,1783,1780,1781,1784,1897,1910,1762,1763,2154,2163,2165] 
+set surface_color,  pcol7, surf_pocket7 
+set_color pcol8 = [0.278,0.337,0.702]
+select surf_pocket8, protein and id [23351,23347,23349,23350,23840,23841,21526,21552,23830,23828,23829,23831,21548,23389,23396,23397,23398,23387,23388,21497,21499,22540,22542,22543,22565,22567,21609,21582,22549,21584,24177,22536,22551,22546] 
+set surface_color,  pcol8, surf_pocket8 
+set_color pcol9 = [0.361,0.412,0.902]
+select surf_pocket9, protein and id [25966,25967,26290,26291,26292,25556,25557,26526,21694,21695,25563,25565,25566,25524,25011,25012,25038,25589,25590,25591,25039,25964,25965,26299,25973,25972,21699,21703,21704,21715,25504,25508,25512,21696,21697,26532,24815,24816,24798,24792,24795,24796,25527,25555,25948] 
+set surface_color,  pcol9, surf_pocket9 
+set_color pcol10 = [0.278,0.302,0.702]
+select surf_pocket10, protein and id [9967,9970,9615,9971,9972,9969,10005,9039,9228,9230,9998,8756,8759,8991,9240,9242,9016,9965,8754,9974,9590,9591,9200,9210] 
+set surface_color,  pcol10, surf_pocket10 
+set_color pcol11 = [0.361,0.369,0.902]
+select surf_pocket11, protein and id [25353,25510,25513,25521,24768,24769,24770,24959,24767,24984,24956,24978,24954,24976,24980,25493,25494,25496,25498,21706,25492,25504,24746,25475,25476,25351,25352,24745,24494,24460,21663,21664,24778,24734,24742,21659,21661,24799,21623,21624,25478,25480,21619] 
+set surface_color,  pcol11, surf_pocket11 
+set_color pcol12 = [0.290,0.278,0.702]
+select surf_pocket12, protein and id [10122,10123,10121,10261,10259,10262,10264,10286,10287,10056,10057,10151,10152,10255,10232,8776,9995,9996,9997,8792,8794,9042,9044,9962,9963,9964,9960,9987,9992,9030,10021,10022] 
+set surface_color,  pcol12, surf_pocket12 
+set_color pcol13 = [0.392,0.361,0.902]
+select surf_pocket13, protein and id [2144,2218,2221,2223,2042,2041,2062,2281,2255,2258,2259,2254,2141,2112,2114,2118,2110,2447] 
+set surface_color,  pcol13, surf_pocket13 
+set_color pcol14 = [0.322,0.278,0.702]
+select surf_pocket14, protein and id [23025,23026,23027,23028,23029,23031,22772,22778,22779,6632,6676,6629,22724,22725,6686,6687,6688,6760,6761,6728,22710,22713,6602,6603,6606,6607,6608,6737,22801,22804,22770,22771,22773,23000,22774,22991,6692,6726,6735,6736,6738,6682,6685,6689,6706] 
+set surface_color,  pcol14, surf_pocket14 
+set_color pcol15 = [0.435,0.361,0.902]
+select surf_pocket15, protein and id [14870,14859,14860,14891,14861,14862,14863,14866,14867,8088,8117,8079,15581,15582,14967,14968,14970,15009,15554,15572,15573,15574,15575,15560,15561,15562,7797,7798,8087,8049,8050,14897,14899,8048] 
+set surface_color,  pcol15, surf_pocket15 
+set_color pcol16 = [0.353,0.278,0.702]
+select surf_pocket16, protein and id [5499,5473,5496,5497,5498,5673,5674,5817,5818,5637,5638,5837,5815,5843,5392] 
+set surface_color,  pcol16, surf_pocket16 
+set_color pcol17 = [0.475,0.361,0.902]
+select surf_pocket17, protein and id [16590,18653,18654,18842,28439,28459,28454,18844,28436,16475,18582,16459,18857,18860,28432,28433,28435,16458,16589,18724,18560,18528,18561,18563,18565,18564,18566] 
+set surface_color,  pcol17, surf_pocket17 
+set_color pcol18 = [0.384,0.278,0.702]
+select surf_pocket18, protein and id [29440,29465,29467,29730,30119,29729,29767,29768,29891,29883,29885,29919,29967,29958,30117] 
+set surface_color,  pcol18, surf_pocket18 
+set_color pcol19 = [0.518,0.361,0.902]
+select surf_pocket19, protein and id [21245,21276,21157,21128,21125,21126,21127,21130,21825,21241,21275,21277,21826,21268] 
+set surface_color,  pcol19, surf_pocket19 
+set_color pcol20 = [0.416,0.278,0.702]
+select surf_pocket20, protein and id [719,560,737,740,596,576,577,578,581,558,561,724,741,742,738,739,756,755,704,722,725,702,866,869,848,851,670,649,665,705,647,650,849,631,632,635,760,757,614] 
+set surface_color,  pcol20, surf_pocket20 
+set_color pcol21 = [0.557,0.361,0.902]
+select surf_pocket21, protein and id [29344,29345,29424,29425,29359,29360,29423,29398,29391,29422,29306,10587,10588,10589,10360,10363,29456,29458,10364,10368,10359,10579,10578] 
+set surface_color,  pcol21, surf_pocket21 
+set_color pcol22 = [0.451,0.278,0.702]
+select surf_pocket22, protein and id [23877,23878,23880,23609,23611,23876,23471,23472,23440,23463,23644,23250] 
+set surface_color,  pcol22, surf_pocket22 
+set_color pcol23 = [0.600,0.361,0.902]
+select surf_pocket23, protein and id [22066,22068,22197,22199,22418,22420,22422,22454,22456,22042,22213,22195,22455,22457,22459,26494,26496,22458,22071,22098,22100,22446,22451,22044,22070,22074] 
+set surface_color,  pcol23, surf_pocket23 
+set_color pcol24 = [0.482,0.278,0.702]
+select surf_pocket24, protein and id [26948,26951,27499,27501,26942,19976,27523,19965,19970,27532,27533,19683,19671,19672,19962,19630,19657,19959,19631] 
+set surface_color,  pcol24, surf_pocket24 
+set_color pcol25 = [0.639,0.361,0.902]
+select surf_pocket25, protein and id [21924,21985,22015,21958,22410,22385,22388,21382,21389,21397,21991,21988,21401,21403,22383,22384,5588,5589,21921,22360,22362,22363,21961] 
+set surface_color,  pcol25, surf_pocket25 
+set_color pcol26 = [0.514,0.278,0.702]
+select surf_pocket26, protein and id [20492,20498,20497,20210,20554,20555,20527,20528,20529,20531,20530,20532,25825,20237,25803,20238,20545,20546,27850,25823] 
+set surface_color,  pcol26, surf_pocket26 
+set_color pcol27 = [0.682,0.361,0.902]
+select surf_pocket27, protein and id [12608,12957,12958,13403,13367,12607,13372,20716,20717,12985,12987,13415,13425,20737,20725,13459,13461,20738,20735] 
+set surface_color,  pcol27, surf_pocket27 
+set_color pcol28 = [0.545,0.278,0.702]
+select surf_pocket28, protein and id [15889,13993,13994,13996,13997,15866,15880,15881,11968,12311,12312,12313,12254,12257,13998,14303,14304,14307,12251,12249,12277,12278,12250,12225,12228,12227,14025,14026,14287,14300,14299,14033,14035,11941,11970,11971,11974,11966,11939,11942,12229] 
+set surface_color,  pcol28, surf_pocket28 
+set_color pcol29 = [0.722,0.361,0.902]
+select surf_pocket29, protein and id [21474,21475,21466,21477,6838,6837,22521,22509,22517,22520,22473,22474,21463,6904,6872,6873,22470,22502,22503,21444,6944] 
+set surface_color,  pcol29, surf_pocket29 
+set_color pcol30 = [0.580,0.278,0.702]
+select surf_pocket30, protein and id [12810,12811,12848,13156,12836,12838,12871,13080,13084,13125,12873,13116,13276,13277,13115] 
+set surface_color,  pcol30, surf_pocket30 
+set_color pcol31 = [0.765,0.361,0.902]
+select surf_pocket31, protein and id [15203,16387,14555,16405,14577,14578,14579,16365,16367,16359,16362,14580,14420,14421,14422,14423,14424,14547,16417,14543,14552] 
+set surface_color,  pcol31, surf_pocket31 
+set_color pcol32 = [0.612,0.278,0.702]
+select surf_pocket32, protein and id [4535,4558,4528,4536,4539,7803,7811,7814,7815,7816,7781,7463,7782,4582,4563,7821,7822,4580] 
+set surface_color,  pcol32, surf_pocket32 
+set_color pcol33 = [0.804,0.361,0.902]
+select surf_pocket33, protein and id [22084,22052,22048,22076,22080,22081,21335,22485,22483,22484,25462,25458,21472,22078,22107,22079,26482,22085,22115,25460,25461,21746] 
+set surface_color,  pcol33, surf_pocket33 
+set_color pcol34 = [0.643,0.278,0.702]
+select surf_pocket34, protein and id [13969,13972,13977,13971,13973,15316,15317,15321,15322,15323,15336,14015,14017,14016,15327,13950,14343,15312,14258,14260] 
+set surface_color,  pcol34, surf_pocket34 
+set_color pcol35 = [0.847,0.361,0.902]
+select surf_pocket35, protein and id [27628,27629,27665,27655,27411,27202,27316,27167] 
+set surface_color,  pcol35, surf_pocket35 
+set_color pcol36 = [0.675,0.278,0.702]
+select surf_pocket36, protein and id [27508,26907,27478,26897,13198,13199,26910,27210,27175,27173,27178,27181,26900,26898,26899,27207,26744,26745,26761,13183,26763,13184,13188,13189] 
+set surface_color,  pcol36, surf_pocket36 
+set_color pcol37 = [0.890,0.361,0.902]
+select surf_pocket37, protein and id [29343,29345,29296,29424,29416,29391,29305,29293,29303,28572,29306,29103,28573,28576] 
+set surface_color,  pcol37, surf_pocket37 
+set_color pcol38 = [0.702,0.278,0.694]
+select surf_pocket38, protein and id [643,644,645,453,468,371,372,373,393,390,662,661,665,660,487,467,470,534,536,537,538,535,357,374,375,355,553,555,556,576] 
+set surface_color,  pcol38, surf_pocket38 
+set_color pcol39 = [0.902,0.361,0.871]
+select surf_pocket39, protein and id [4029,4009,3710,3711,4035,9687,1191,9651,9652,9653,9654,9655,9650,4364,4365,4336,4008,1212,4335,9686,9688,9684,9661] 
+set surface_color,  pcol39, surf_pocket39 
+set_color pcol40 = [0.702,0.278,0.659]
+select surf_pocket40, protein and id [25499,25479,25481,21655,21659,22104,22106,22107,26454,26451,26452,26453,21679,21680,25462,21745,21747,21723,25460,21746,22113,22115] 
+set surface_color,  pcol40, surf_pocket40 
+set_color pcol41 = [0.902,0.361,0.827]
+select surf_pocket41, protein and id [17993,17759,17811,17915,17442,17481,17498] 
+set surface_color,  pcol41, surf_pocket41 
+set_color pcol42 = [0.702,0.278,0.627]
+select surf_pocket42, protein and id [1683,1595,1663,1677,1679,1680,1681,1684,1763,1761,1577,1580,1779,1560,1529,1530,1699,1511,1512,1515,1799,1777,1778,1780,1781,1704,1574,1508,1509] 
+set surface_color,  pcol42, surf_pocket42 
+set_color pcol43 = [0.902,0.361,0.788]
+select surf_pocket43, protein and id [118,139,283,284,266,42,45,22,24,25,264,267,117,119,98,101,97,120,121,134,40,41,178,199,176,179,194,287] 
+set surface_color,  pcol43, surf_pocket43 
+set_color pcol44 = [0.702,0.278,0.596]
+select surf_pocket44, protein and id [4486,4516,4513,4515,4947,4949,4514,4633,4661,4631,4634,4974,4975,4493,4483,4484,4566,4567,4564,4937] 
+set surface_color,  pcol44, surf_pocket44 
+set_color pcol45 = [0.902,0.361,0.745]
+select surf_pocket45, protein and id [760,836,1014,1017,997,944,945,946,949,834,780,929,854,926,874,1016,928,853,1032,1013,744,765,761,762,742,745] 
+set surface_color,  pcol45, surf_pocket45 
+set_color pcol46 = [0.702,0.278,0.565]
+select surf_pocket46, protein and id [14316,14317,12627,12885,12852,12883,12912,12579,12543,12544,12546,12547,12549,12550,12553,12554,12556,12967,12596,12933,12552,12575,12628,12594,12548] 
+set surface_color,  pcol46, surf_pocket46 
+set_color pcol47 = [0.902,0.361,0.706]
+select surf_pocket47, protein and id [28247,17252,17253,17254,17256,16773,16758,16798,16797,16978,16994,16996,28229,28230,17274,16977,16979] 
+set surface_color,  pcol47, surf_pocket47 
+set_color pcol48 = [0.702,0.278,0.533]
+select surf_pocket48, protein and id [15791,15823,15792,16058,16057,16056,15821,15822,11362,11292,11300,11302,11653,11301,11321,15772] 
+set surface_color,  pcol48, surf_pocket48 
+set_color pcol49 = [0.902,0.361,0.663]
+select surf_pocket49, protein and id [14061,11943,11944,11934,11936,12194,12229,14021,14023,14270,14275,14026,14288,12216,12230,14267,13587,14278,14279,14280,12219] 
+set surface_color,  pcol49, surf_pocket49 
+set_color pcol50 = [0.702,0.278,0.498]
+select surf_pocket50, protein and id [11024,11031,29134,10988,10989,11025,29120,29122,29136,29126,29161,29327,29162,29138,11010] 
+set surface_color,  pcol50, surf_pocket50 
+set_color pcol51 = [0.902,0.361,0.624]
+select surf_pocket51, protein and id [9390,9391,9392,9360,4008,3974,3976,1228,4276,4298,4299,4335,4302,4303,4311,3972,4312,4313,1235,3944,3947,9655,4334,4336] 
+set surface_color,  pcol51, surf_pocket51 
+set_color pcol52 = [0.702,0.278,0.467]
+select surf_pocket52, protein and id [14335,12539,12507,12509,12220,13584,14296,12484,12513,12218,12244,12485,13847] 
+set surface_color,  pcol52, surf_pocket52 
+set_color pcol53 = [0.902,0.361,0.580]
+select surf_pocket53, protein and id [11193,11195,11196,11203,11592,15779,15753,15755,11629,11617,11232,11234,11628,11620,11233,11235,15773] 
+set surface_color,  pcol53, surf_pocket53 
+set_color pcol54 = [0.702,0.278,0.435]
+select surf_pocket54, protein and id [11322,11353,11362,11363,11361,28776,15823,15998,15997,15857,15856,11321] 
+set surface_color,  pcol54, surf_pocket54 
+set_color pcol55 = [0.902,0.361,0.541]
+select surf_pocket55, protein and id [17032,17033,17181,17182,14702,17040,15429,15414,15437,14733,14690,14672,14703,15430,15435,17526,15445,15446,16333,14709,16334,16335,16336,16337,14706,14708] 
+set surface_color,  pcol55, surf_pocket55 
+set_color pcol56 = [0.702,0.278,0.404]
+select surf_pocket56, protein and id [27805,26242,25361,21762,21761,25391,21760,21009,21010] 
+set surface_color,  pcol56, surf_pocket56 
+set_color pcol57 = [0.902,0.361,0.498]
+select surf_pocket57, protein and id [20302,20298,20634,20579,20265,26723,26702,26701,13071,13072,13073,13070,13035,13038,20602] 
+set surface_color,  pcol57, surf_pocket57 
+set_color pcol58 = [0.702,0.278,0.373]
+select surf_pocket58, protein and id [28755,28757,28759,29252,29253,29229,11370,11371,11372,28784,28803,28804,29144,29145,29242,29250,29236,29141,11015,11016,28786,29143,28756,28758] 
+set surface_color,  pcol58, surf_pocket58 
+set_color pcol59 = [0.902,0.361,0.455]
+select surf_pocket59, protein and id [1948,1831,1833,1834,1813,1933,1930,1854,1850,1847,1849,1926,1927,1928,1782,1783,1801,1804,1784,1967,1968,1978] 
+set surface_color,  pcol59, surf_pocket59 
+set_color pcol60 = [0.702,0.278,0.337]
+select surf_pocket60, protein and id [3226,3227,3202,3192,3228,3352,3170,3195,3319,3320,2974,2975,2976,2903,2914] 
+set surface_color,  pcol60, surf_pocket60 
+set_color pcol61 = [0.902,0.361,0.416]
+select surf_pocket61, protein and id [11810,11903,11837,11693,11695,11696,11697,11698,11904] 
+set surface_color,  pcol61, surf_pocket61 
+set_color pcol62 = [0.702,0.278,0.306]
+select surf_pocket62, protein and id [23334,23333,23335,23414,22913,23245,22912,22957] 
+set surface_color,  pcol62, surf_pocket62 
+set_color pcol63 = [0.902,0.361,0.373]
+select surf_pocket63, protein and id [3340,3372,3374,3375,3336,3338,3343,3641,3638,1223,1224,3689,3690,3395,1217,3396,3662,1220,3668] 
+set surface_color,  pcol63, surf_pocket63 
+set_color pcol64 = [0.702,0.286,0.278]
+select surf_pocket64, protein and id [7612,7757,7851,7729,7730,7642,7865,7762,7936] 
+set surface_color,  pcol64, surf_pocket64 
+set_color pcol65 = [0.902,0.388,0.361]
+select surf_pocket65, protein and id [23643,23680,23681,23888,23860,23862,23863,23864,23844,23845,23890,23859,23861,23673,23846] 
+set surface_color,  pcol65, surf_pocket65 
+set_color pcol66 = [0.702,0.318,0.278]
+select surf_pocket66, protein and id [2566,2777,2779,2454,2590,2740,2424,2427] 
+set surface_color,  pcol66, surf_pocket66 
+set_color pcol67 = [0.902,0.427,0.361]
+select surf_pocket67, protein and id [9151,8954,30630,30286,30716,30717,30288,30620,8953,8955,8929,9119,8882,8885,8887] 
+set surface_color,  pcol67, surf_pocket67 
+set_color pcol68 = [0.702,0.349,0.278]
+select surf_pocket68, protein and id [20135,20368,20124,20349,20377,20154,20155,20156,20378,20449,20063,20064,20126,20127,20133,27940,20370,20372] 
+set surface_color,  pcol68, surf_pocket68 
+set_color pcol69 = [0.902,0.471,0.361]
+select surf_pocket69, protein and id [16630,16424,16428,16429,16445,16640,16907,16423,16905,16464,16556,16566,16466,16559,16561,16909,16456,16911] 
+set surface_color,  pcol69, surf_pocket69 
+set_color pcol70 = [0.702,0.380,0.278]
+select surf_pocket70, protein and id [3443,3142,3434,3138,3140,3383,3149,3139,3144,3179,3145,3113,3432,3431,3471] 
+set surface_color,  pcol70, surf_pocket70 
+set_color pcol71 = [0.902,0.510,0.361]
+select surf_pocket71, protein and id [6811,6773,22994,6776,23407,6775,22963,23454,23455,22985,22986,22987,22988,6815,6813,6797,6767,6806] 
+set surface_color,  pcol71, surf_pocket71 
+set_color pcol72 = [0.702,0.416,0.278]
+select surf_pocket72, protein and id [11265,11239,11267,11299,11268,11271,11273,11102,11103,10927,10931,10934,10964,11237,11240] 
+set surface_color,  pcol72, surf_pocket72 
+set_color pcol73 = [0.902,0.553,0.361]
+select surf_pocket73, protein and id [29041,28620,28619,29285,29287,28875,28913] 
+set surface_color,  pcol73, surf_pocket73 
+set_color pcol74 = [0.702,0.447,0.278]
+select surf_pocket74, protein and id [13313,13317,13318,13315,12701,13285,13287,13312,12679,12702] 
+set surface_color,  pcol74, surf_pocket74 
+set_color pcol75 = [0.902,0.596,0.361]
+select surf_pocket75, protein and id [17256,16773,16758,16798,17078,17113,17255,17080] 
+set surface_color,  pcol75, surf_pocket75 
+set_color pcol76 = [0.702,0.478,0.278]
+select surf_pocket76, protein and id [26874,27083,26917,26919,26891,27442,27141,26889,27066,26983,27443] 
+set surface_color,  pcol76, surf_pocket76 
+set_color pcol77 = [0.902,0.635,0.361]
+select surf_pocket77, protein and id [934,931,933,1264,1037,949,950,951,947,948,968,1021,1019,1022,1285,1282,1284,1038,1001,1300,1305] 
+set surface_color,  pcol77, surf_pocket77 
+set_color pcol78 = [0.702,0.510,0.278]
+select surf_pocket78, protein and id [10695,10698,10699,10725,10697,10837,10838,10826,10828,10724,11146,10863,10861] 
+set surface_color,  pcol78, surf_pocket78 
+set_color pcol79 = [0.902,0.678,0.361]
+select surf_pocket79, protein and id [15453,15454,15168,16372,16374,16339,16342,15451,15408,16348,15428,16344,16349,16351] 
+set surface_color,  pcol79, surf_pocket79 
+set_color pcol80 = [0.702,0.541,0.278]
+select surf_pocket80, protein and id [14348,13908,13911,13904,13906,13898,14351,14266,13925,13923,13582,14262,14345,13588,13589,13594] 
+set surface_color,  pcol80, surf_pocket80 
+set_color pcol81 = [0.902,0.718,0.361]
+select surf_pocket81, protein and id [13325,13326,13327,13286,13254,13291,13292,13295,27243,27244,27242,13257,20783,27563,27564,27565,27566,20052,20789] 
+set surface_color,  pcol81, surf_pocket81 
+set_color pcol82 = [0.702,0.576,0.278]
+select surf_pocket82, protein and id [26605,26589,26599,26601,21808,21839,21841,26607,22171,22182,22181,22154,21831,21806] 
+set surface_color,  pcol82, surf_pocket82 
+set_color pcol83 = [0.902,0.761,0.361]
+select surf_pocket83, protein and id [10511,10216,10243,10245,10247,10248,10510,10517,10562,10547,10548] 
+set surface_color,  pcol83, surf_pocket83 
+set_color pcol84 = [0.702,0.608,0.278]
+select surf_pocket84, protein and id [14068,14099,15726,15785,14069,15112,15138,15134,15784,15136] 
+set surface_color,  pcol84, surf_pocket84 
+set_color pcol85 = [0.902,0.800,0.361]
+select surf_pocket85, protein and id [14798,15521,15522,15523,14800,16391,16280,15517,15518,14769,16321,16296,16297,16278] 
+set surface_color,  pcol85, surf_pocket85 
+set_color pcol86 = [0.702,0.639,0.278]
+select surf_pocket86, protein and id [22283,22285,22344,22345,22346,5622,5623,5593,22315,22355,5923,5633,22281] 
+set surface_color,  pcol86, surf_pocket86 
+set_color pcol87 = [0.902,0.843,0.361]
+select surf_pocket87, protein and id [5095,5066,5069,5074,4785,4756,4783,5094,4781,5037] 
+set surface_color,  pcol87, surf_pocket87 
+set_color pcol88 = [0.702,0.671,0.278]
+select surf_pocket88, protein and id [11248,11250,11126,11106,11109,11224,11252,11253,11501,11108,11479] 
+set surface_color,  pcol88, surf_pocket88 
+set_color pcol89 = [0.902,0.882,0.361]
+select surf_pocket89, protein and id [3884,4178,4186,3887,3886,4152,4154,4184,4185,3996] 
+set surface_color,  pcol89, surf_pocket89 
+set_color pcol90 = [0.698,0.702,0.278]
+select surf_pocket90, protein and id [4194,9470,9575,9577,9522,9524,9548] 
+set surface_color,  pcol90, surf_pocket90 
+set_color pcol91 = [0.875,0.902,0.361]
+select surf_pocket91, protein and id [7798,8047,14942,7771,7768] 
+set surface_color,  pcol91, surf_pocket91 
+set_color pcol92 = [0.663,0.702,0.278]
+select surf_pocket92, protein and id [19398,19414,19404,19405,19406,27671,19420,19466,19763,19745,19744,19746,19713,27672] 
+set surface_color,  pcol92, surf_pocket92 
+set_color pcol93 = [0.835,0.902,0.361]
+select surf_pocket93, protein and id [2398,2288,2611,2395] 
+set surface_color,  pcol93, surf_pocket93 
+set_color pcol94 = [0.631,0.702,0.278]
+select surf_pocket94, protein and id [17170,17171,17047,17164] 
+set surface_color,  pcol94, surf_pocket94 
+   
+        
+        deselect
+        
+        orient
+        
