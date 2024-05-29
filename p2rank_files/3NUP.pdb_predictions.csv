@@ -1,0 +1,2 @@
+name     ,  rank,   score, probability, sas_points, surf_atoms,   center_x,   center_y,   center_z, residue_ids, surf_atom_ids
+pocket1  ,     1,    5.93,       0.291,         56,         29,    24.6568,    35.1041,    -6.6584, A_100 A_101 A_103 A_104 A_149 A_150 A_152 A_162 A_163 A_19 A_27 A_41 A_43 A_77 A_98 A_99, 63 64 65 87 88 89 200 216 217 414 527 529 534 547 549 550 553 567 574 581 946 956 974 975 1044 1045 1049 1050 1051
