@@ -1,2 +1,2 @@
 # Practical-Work-for-AI
-PDB-Dataset for testing TANKBIND model (protein ligand binding) + evaluation
+Testing pretrained self-dock TankBind model (protein ligand binding) with KIBA dataset + evaluation
